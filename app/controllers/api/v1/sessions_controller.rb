@@ -1,14 +1,14 @@
 class Api::V1::SessionsController < ApplicationController
     def create
-        user = User.find_by(email: sessions_params[:password])
+        user = User.find_by(email: sessions_params[:email])
         
-        if user && user.valid_password?(sessions_params[:passaword])
-            sign_in_user, store: false
-            user.generate_authentication_token:
+        if user && user.valid_password?(sessions_params[:password])
+            sign_in user, store: false
+            user.generate_authentication_token!
             user.save
             render json: user, status:200
         else
-            render json: {erros: 'E-mail ou senha inválido'}, status: 401
+            render json: {errors: 'E-mail ou senha inválido' }, status: 401
         end
     end
     
@@ -23,5 +23,5 @@ class Api::V1::SessionsController < ApplicationController
     
     def sessions_params
         params.require(:session).permit(:email, :password)
-    end
+    end    
 end
