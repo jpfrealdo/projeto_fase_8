@@ -5,7 +5,7 @@ class Api::V2::ExpensesController < ApplicationController
     def index
 
         expenses = current_user.expenses
-        render json: {expenses: expenses}, status: 200
+        render json: expense, status: 200
     end
     
     def show

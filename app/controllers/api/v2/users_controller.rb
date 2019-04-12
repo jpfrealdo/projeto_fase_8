@@ -1,12 +1,11 @@
 class Api::V2::UsersController < ApplicationController
     before_action :authenticate_with_token!, only:[:update, :destroy]
     
-    
     def show
         begin
-            #Cria a variavel, recebe o usuario e respondde ele
+            #Cria a variavel, recebe o usuario e responde ele
             user = User.find(params[:id])
-            render json: user, status: 200 
+            render json: user, status: 200
         rescue
             # Caso dê errado vem o erro 404
             head 404
